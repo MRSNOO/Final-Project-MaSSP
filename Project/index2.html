@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="img_here"></div>
+  <form method = "post" enctype = "multipart/form-data" id = "add_pro_form" onsubmit = "return false">	
+    File: 
+    <input type = 'file' name = 'photo' />  
+      <button> Submit </button>
+  </form>
+  <script type="text/javascript">
+  $(function() {
+      $("form#add_pro_form").submit (function () {
+        var formData = new FormData(this);
+        axios.post('http://127.0.0.1:8000/handleUpload', formData)
+        .then((resp) => {
+          alert(JSON.stringify(resp))
+          // https://abcxyz.com/img.jpg
+          document.getElementById('img_here').innerHTML = "<img src='" + 'https://i.imgur.com/N6SaAlZ.jpg' + "' alt='ok'/>"
+        })
+      });
+    });
+    // $(function() {
+    //   $("form#add_pro_form").submit (function () {
+    //     var mes = "Add this image? (y/n)";
+    //     var Commit = prompt(mes);
+    //     if (Commit == 'y') {
+    //       var formData = new FormData(this);
+    //       $.ajax({					
+    //         type: "POST",
+    //         url: "http://127.0.0.1:5000/handleUpload",					
+    //         data: formData,
+    //         async: false,
+    //         success: function(resp) {
+    //           alert(resp)
+    //         },
+    //         fail: function (resp) {
+    //           alert(resp)
+    //         },
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //       });	
+    //     };
+    //   });
+    // });
+</script>
+</body>
+</html>

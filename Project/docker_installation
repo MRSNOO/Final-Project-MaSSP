@@ -1,0 +1,10 @@
+$ sudo apt-get remove docker docker-engine docker.io containerd runc
+$ sudo apt-get install docker.io
+$ docker build -t flask-ml:latest .
+$ docker run -d -p 5000:5000 flask-ml
+
+$RUN
+$ sudo docker run -i -p 5000:5000 -d flask-ml
+
+$BUILD
+$ sudo docker build -t flask-ml:latest .

@@ -1,0 +1,12 @@
+Flask
+numpy
+opencv-python
+scikit-image
+matplotlib
+scipy
+dlib
+imageio
+mtcnn
+PIL
+face_recognition_models
+pandas
