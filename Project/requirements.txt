@@ -1,4 +1,5 @@
 Flask
+flask_cors
 numpy
 opencv-python
 scikit-image
@@ -7,6 +8,7 @@ scipy
 dlib
 imageio
 mtcnn
-PIL
 face_recognition_models
 pandas
+tensorflow
+scikit-learn

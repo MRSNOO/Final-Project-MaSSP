@@ -12,10 +12,10 @@ import imageio
 from matplotlib import pyplot as plt
 from mtcnn.mtcnn import MTCNN
 import os
-import PIL.Image
+#import PIL.Image
 import dlib
-from PIL import ImageFile
-from PIL import Image
+#from PIL import ImageFile
+#from PIL import Image
 import cv2
 import face_recognition_models
 from sklearn import neighbors
@@ -24,7 +24,7 @@ import config
 
 class FaceRecognizer:
   
-  ImageFile.LOAD_TRUNCATED_IMAGES = True
+  #ImageFile.LOAD_TRUNCATED_IMAGES = True
 
   
   predictor_68_point_model = face_recognition_models.pose_predictor_model_location()
@@ -90,27 +90,27 @@ class FaceRecognizer:
     return out_boxes, key, img_encoded
   
   
-  def visualize(self, img,out_boxes,key,name = []):
+  def visualize(self, img,out_boxes,key,name = [], new_name = ""):
     img2 = img.copy()
     plt.figure(figsize=(15, 15))
     for i, c in list(enumerate(out_boxes)):
       box = out_boxes[i]
-      cv2.rectangle(img2,(box.left(),box.top()),(box.right(),box.bottom()),(0,255,0),int(img.shape[1]/150))
+      cv2.rectangle(img2,(box.left(),box.top()),(box.right(),box.bottom()),(0,255,0),int(img.shape[1]/200))
       if len(name) != 0:
-        plt.text(box.left(),box.top(),name[i],fontsize = img.shape[0]/50, color = 'red')
+        plt.text(box.left(),box.top(),name[i],fontsize = img.shape[1]/50, color = 'red')
       keyx = [item[0] for item in key[i].values()]
       keyy = [item[1] for item in key[i].values()]
       #print(keyx,keyy)
-      plt.plot(keyx,keyy,'bo')
+      #plt.plot(keyx,keyy,'bo')
     plt.axis('off')
     plt.imshow(img2)
-    plt.savefig(config.img_out_dir + "frame3.png", bbox_inches='tight', pad_inches=0)
+    plt.savefig(config.img_out_dir + new_name, bbox_inches='tight', pad_inches=0)
     plt.show()
   def init_KNN(self, X_train, y_train):
     clf = neighbors.KNeighborsClassifier(n_neighbors = 15, p = 2, weights = 'distance', n_jobs = -1)
     clf.fit(X_train, y_train)
     self.clf = clf
-  def search_face(self, img):
+  def search_face(self, img, new_name):
     out_boxes, key, img_encoded = self.predict_and_encode (img)
     print(len(img_encoded))
     if len(img_encoded)==0:
@@ -122,12 +122,12 @@ class FaceRecognizer:
       #print(score)
       final_results = []
       for i in range (len(results)):
-        if max(score[i])>0.8:
+        if max(score[i])>0.5:
           final_results.append(results[i])
         else:
           final_results.append("unknown")
       print(final_results)
-      self.visualize(img,out_boxes,key,final_results)
+      self.visualize(img,out_boxes,key,final_results,new_name)
 
 
 

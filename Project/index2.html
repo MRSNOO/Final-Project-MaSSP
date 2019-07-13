@@ -20,38 +20,20 @@
   $(function() {
       $("form#add_pro_form").submit (function () {
         var formData = new FormData(this);
-        axios.post('http://127.0.0.1:8000/handleUpload', formData)
+        axios.post('http://127.0.0.1:8000/handleUpload', formData, {headers: {
+    'Access-Control-Allow-Credentials' : true,
+    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Methods':'GET',
+    'Access-Control-Allow-Headers':'application/json',
+  }})
         .then((resp) => {
-          alert(JSON.stringify(resp))
-          // https://abcxyz.com/img.jpg
-          document.getElementById('img_here').innerHTML = "<img src='" + 'https://i.imgur.com/N6SaAlZ.jpg' + "' alt='ok'/>"
+          //document.getElementById('img_here').innerHTML = "<img alt='img' src='" + resp.data + "'/>";        
+ document.getElementById('img_here').innerHTML = "<iframe src='http://127.0.0.1:8000/img_show/" + resp.data + "'></iframe>";
+//window.open('http://127.0.0.1:8000/img_show/' + resp.data,'_blank');  
+	console.log(resp.data)
         })
       });
     });
-    // $(function() {
-    //   $("form#add_pro_form").submit (function () {
-    //     var mes = "Add this image? (y/n)";
-    //     var Commit = prompt(mes);
-    //     if (Commit == 'y') {
-    //       var formData = new FormData(this);
-    //       $.ajax({					
-    //         type: "POST",
-    //         url: "http://127.0.0.1:5000/handleUpload",					
-    //         data: formData,
-    //         async: false,
-    //         success: function(resp) {
-    //           alert(resp)
-    //         },
-    //         fail: function (resp) {
-    //           alert(resp)
-    //         },
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //       });	
-    //     };
-    //   });
-    // });
 </script>
 </body>
 </html>

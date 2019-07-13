@@ -14,7 +14,9 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" href="../static/index.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 
@@ -71,31 +73,32 @@
       <div class="members_work">Backend, AI core</div>
     </div>
   </div>
+<div id="img_here"></div>
   <div id="demo">
     <div id="button">
       <div> 
-        <button type="button1" class="btn btn-success">Upload File</button>
-        <input type='file' onchange="readURL(this);" name="Upload" />
+        <!--<button type="button1" class="btn btn-success">Upload File</button>
+        <input type='file' onchange="readURL(this);" name="Upload" />-->
       </div>
-      <button type="button" class="btn btn-success">Run</button>
+<form method = "post" enctype = "multipart/form-data" id = "add_pro_form" onsubmit = "return false">	
+    File: 
+    <input type = 'file' name = 'photo' />  
+<button id='button_fuck'> Submit </button>
+      <!--<button type="button" class="btn btn-success">Run</button>-->
+  </form>
     </div>
-
-    <div id="demo_content">
+   <!-- <div id="demo_content">
       <div id="demo_pic">
         <img class="img" id="blah" src="#" alt="Output Image" />
       </div>
       <div id="demo_info">
         <span class="text">Information</span>
       </div>
-    </div>
+    </div> -->
 
   </div>
   <div id="footer"></div>
-
-
-
-
-
+<!--<iframe id="myFrame" src="/default.asp"></iframe>-->
   <script src="../static/javascript/index.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -106,6 +109,27 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+ <script type="text/javascript">
+  $(function() {
+      $("#button_fuck").click (function () {
+
+        let formData = new FormData(this);
+        axios.post('http://127.0.0.1:8000/handleUpload', formData, {headers: {
+    'Access-Control-Allow-Credentials' : true,
+    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Methods':'GET',
+    'Access-Control-Allow-Headers':'application/json',
+  }})
+        .then((resp) => {
+          //document.getElementById('img_here').innerHTML = "<img alt='img' src='" + resp.data + "'/>";        
+ //document.getElementById('img_here').innerHTML = "<iframe style=\"height:200px;width:300px;\"  src='http://127.0.0.1:8000/img_show/" + resp.data + "'></iframe>";
+//window.open('http://127.0.0.1:8000/img_show/' + resp.data,'_blank');  
+	console.log(resp.data)
+//document.getElementById("myFrame").src = 'http://127.0.0.1:8000/img_show/' + resp.data;
+        })
+      });
+    });
+</script>
 </body>
 
 </html>
